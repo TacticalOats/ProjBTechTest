@@ -7,14 +7,9 @@ public class playerBehavior : MonoBehaviour
     public Rigidbody pModel;
     public float pSpeed;
 
-    //Static Variables
-    private float cY;
-    private float cYDef;
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        cYDef = pCamera.position.y;
-        cY = cYDef;
     }
 
     private void FixedUpdate()
