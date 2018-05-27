@@ -300,6 +300,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Fire\fireInsert.cs" />
+    <Compile Include="Assets\Scripts\Fire\fireSource.cs" />
     <Compile Include="Assets\Scripts\playerBehavior.cs" />
     <Compile Include="Assets\Scripts\pPickUp\extGrabbedBehave.cs" />
     <Compile Include="Assets\Scripts\pPickUp\extGrabbedBreak.cs" />

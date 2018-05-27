@@ -81,7 +81,6 @@ public class playerPickUp : MonoBehaviour
             {
                 extGrabbedBehave eGBScript = grabbedItem.GetComponent<extGrabbedBehave>();
                 eGBScript.dropMe = true; //The beauty of using external scripts
-                canCarry = true;
                 return;
             }
         }

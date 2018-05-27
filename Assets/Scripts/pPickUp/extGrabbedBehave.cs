@@ -33,6 +33,7 @@ public class extGrabbedBehave : MonoBehaviour {
         Destroy(gameObject.GetComponent<extGrabbedBehave>());
     }
     private void fall(){
+        GetComponentInParent<playerPickUp>().canCarry = true;
         transform.parent = null;
         transform.GetComponent<Rigidbody>().useGravity = true;
         Destroy(gameObject.GetComponent<extGrabbedBehave>());
