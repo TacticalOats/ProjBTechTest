@@ -7,6 +7,7 @@ public class playerPickUp : MonoBehaviour
 {
     #region Variables - Object Pickup & Drop
     private bool canGrab;
+    [HideInInspector]
     public bool canCarry = true;
     [HideInInspector]
     public GameObject grabbedItem;
@@ -21,6 +22,7 @@ public class playerPickUp : MonoBehaviour
     public Sprite curGrabbed;
     public Image curImage;
     #endregion
+    public Text lbs; //Used to display weight
 
     void Update()
     {
@@ -38,6 +40,7 @@ public class playerPickUp : MonoBehaviour
         if (Physics.Raycast(transform.position, transform.forward, out imTouching, 5.0f)){ //You should know how raycasts work.
             if (imTouching.transform.tag == tag || imTouching.transform.tag == tag2){
                 imTouching.transform.GetComponent<Renderer>().material.SetFloat("_OutlineWidth", 1.05f); //Draws outline on grabbable object
+                pounds(imTouching.rigidbody.mass);//Sends mass to the pounds() method
                 curItem = imTouching.transform.gameObject; //stores the gameobject into a variable
                 if (lastTouched != curItem){ //Assures that we don't keep writing outlines to every outlineable object
                     if (lastTouched != null)
@@ -51,6 +54,7 @@ public class playerPickUp : MonoBehaviour
             }
         }//If we can't pick it up, then dump the gameobject variable and report back
         Debug.DrawRay(transform.position, transform.forward * imTouching.distance, Color.white);
+        lbs.text = null;
         if (curItem != null) //If we still have something stored in curItem, reset its outline and get rid of the reference
         {
             curItem.transform.GetComponent<Renderer>().material.SetFloat("_OutlineWidth", 1.0f);
@@ -107,4 +111,11 @@ public class playerPickUp : MonoBehaviour
         }
     }
     #endregion
+
+    private void pounds(float mass){
+        lbs.text = mass.ToString() + "lbs";
+        if (mass >= 80){
+            lbs.color = Color.red;
+        } else { lbs.color = Color.white; }
+    }
 }

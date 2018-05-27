@@ -6,6 +6,7 @@ public class playerBehavior : MonoBehaviour
     public Rigidbody pCamera;
     public Rigidbody pModel;
     public float pSpeed;
+    public float throwForce;
 
     private void Awake()
     {

@@ -42,7 +42,7 @@ public class extGrabbedBehave : MonoBehaviour {
             transform.gameObject.AddComponent<extGrabbedBreak>();
         }
         playerPickUp pPUScript = GetComponentInParent<playerPickUp>();
-        transform.GetComponent<Rigidbody>().AddForce(transform.parent.forward * 8, ForceMode.Impulse);
+        transform.GetComponent<Rigidbody>().AddForce(transform.parent.forward * GetComponentInParent<playerBehavior>().throwForce, ForceMode.Impulse);
         pPUScript.canCarry = true;
         transform.parent = null;
         transform.GetComponent<Rigidbody>().useGravity = true;
