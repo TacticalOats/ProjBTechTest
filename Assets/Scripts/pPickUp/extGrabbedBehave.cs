@@ -27,8 +27,8 @@ public class extGrabbedBehave : MonoBehaviour {
     private void OnCollisionEnter(Collision collision)
     {   
         playerPickUp pPUScript = GetComponentInParent<playerPickUp>();
-        transform.GetComponent<Rigidbody>().useGravity = true;
         pPUScript.canCarry = true;
+        transform.GetComponent<Rigidbody>().useGravity = true;
         transform.parent = null;
         Destroy(gameObject.GetComponent<extGrabbedBehave>());
     }

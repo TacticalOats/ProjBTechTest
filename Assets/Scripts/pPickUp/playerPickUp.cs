@@ -11,6 +11,8 @@ public class playerPickUp : MonoBehaviour
     [HideInInspector]
     public GameObject grabbedItem;
     private GameObject curItem;
+
+    private GameObject lastTouched;
     #endregion
 
     #region Variables - Cursor Changing
@@ -29,18 +31,31 @@ public class playerPickUp : MonoBehaviour
         changeCur(); //Simply assures we grab the right cursor overlay for different object returns
     }
 
+    //RELIES ON "Mike" TO FUNCTION PROPERLY
     #region checkTag() Method
     private bool checkTag(string tag, string tag2) { //Mimics LINQ till we actually use LINQ
         RaycastHit imTouching;
         if (Physics.Raycast(transform.position, transform.forward, out imTouching, 5.0f)){ //You should know how raycasts work.
             if (imTouching.transform.tag == tag || imTouching.transform.tag == tag2){
+                imTouching.transform.GetComponent<Renderer>().material.SetFloat("_OutlineWidth", 1.05f); //Draws outline on grabbable object
                 curItem = imTouching.transform.gameObject; //stores the gameobject into a variable
+                if (lastTouched != curItem){ //Assures that we don't keep writing outlines to every outlineable object
+                    if (lastTouched != null)
+                    {
+                        lastTouched.transform.GetComponent<Renderer>().material.SetFloat("_OutlineWidth", 1.0f);
+                    }
+                    lastTouched = curItem;
+                }
                 Debug.DrawRay(transform.position, transform.forward * imTouching.distance, Color.white); //Useful for designers to know if their object is reachable
                 return canGrab = true;
             }
         }//If we can't pick it up, then dump the gameobject variable and report back
         Debug.DrawRay(transform.position, transform.forward * imTouching.distance, Color.white);
-        curItem = null;
+        if (curItem != null) //If we still have something stored in curItem, reset its outline and get rid of the reference
+        {
+            curItem.transform.GetComponent<Renderer>().material.SetFloat("_OutlineWidth", 1.0f);
+            curItem = null;
+        }
         return canGrab = false;
     }
     #endregion
