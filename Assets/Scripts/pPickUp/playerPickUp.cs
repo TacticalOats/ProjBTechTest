@@ -112,10 +112,12 @@ public class playerPickUp : MonoBehaviour
     }
     #endregion
 
+    #region pounds() Method
     private void pounds(float mass){
-        lbs.text = mass.ToString() + "lbs";
+        lbs.text = mass.ToString() + "lbs"; //If the weight is above or equal to 80lbs, then make text red. Otherwise, white text.
         if (mass >= 80){
             lbs.color = Color.red;
         } else { lbs.color = Color.white; }
     }
+    #endregion
 }
