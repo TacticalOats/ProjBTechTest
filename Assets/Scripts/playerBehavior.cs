@@ -24,18 +24,18 @@ public class playerBehavior : MonoBehaviour
         //transform.Translate(new Vector3(Input.GetAxisRaw("Horizontal"), 0.0f, Input.GetAxisRaw("Vertical")).normalized * Time.deltaTime * pSpeed);
 
         var movX = Input.GetAxisRaw("Horizontal");
-        var movY = Input.GetAxisRaw("Vertical");
+        var movZ = Input.GetAxisRaw("Vertical");
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            transform.Translate(new Vector3(movX, 0, movY).normalized * Time.deltaTime * (pSpeed * 2.5f));
+            transform.Translate(new Vector3(movX, 0, movZ).normalized * Time.deltaTime * (pSpeed * 2.5f));
         }
         else if(Input.GetKey(KeyCode.LeftControl))
         {
-            transform.Translate(new Vector3(movX, 0, movY).normalized * Time.deltaTime * (pSpeed/2));
+            transform.Translate(new Vector3(movX, 0, movZ).normalized * Time.deltaTime * (pSpeed/2));
         }
         else
         {
-            transform.Translate(new Vector3(movX, 0, movY).normalized * Time.deltaTime * pSpeed);
+            transform.Translate(new Vector3(movX, 0, movZ).normalized * Time.deltaTime * pSpeed);
         }
 
     }

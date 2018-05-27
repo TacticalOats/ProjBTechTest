@@ -1,63 +1,95 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class playerPickUp : MonoBehaviour
 {
+    #region Variables - Object Pickup & Drop
     private bool canGrab;
     public bool canCarry = true;
     [HideInInspector]
     public GameObject grabbedItem;
     private GameObject curItem;
+    #endregion
+
+    #region Variables - Cursor Changing
+    public Sprite curDef;
+    public Sprite curGrabbable;
+    public Sprite curGrabbed;
+    public Image curImage;
+    #endregion
+
     void Update()
     {
-        //Sometime move checkTag to LINQ
-        checkTag("Item", "Item:Breakable");
-        if (canGrab == true){
+        checkTag("Item", "Item:Breakable");        //Sometime update to use LINQ, checks for tags of grabbable items
+        if (canGrab == true){ //When the object is grabbable, run the objInterect() method
             objInteract();
         }
+        changeCur(); //Simply assures we grab the right cursor overlay for different object returns
     }
 
-    private bool checkTag(string tag, string tag2) {
+    #region checkTag() Method
+    private bool checkTag(string tag, string tag2) { //Mimics LINQ till we actually use LINQ
         RaycastHit imTouching;
-        if (Physics.Raycast(transform.position, transform.forward, out imTouching, 5.0f)){
+        if (Physics.Raycast(transform.position, transform.forward, out imTouching, 5.0f)){ //You should know how raycasts work.
             if (imTouching.transform.tag == tag || imTouching.transform.tag == tag2){
-                curItem = imTouching.transform.gameObject;
-                Debug.DrawRay(transform.position, transform.forward * imTouching.distance, Color.white);
+                curItem = imTouching.transform.gameObject; //stores the gameobject into a variable
+                Debug.DrawRay(transform.position, transform.forward * imTouching.distance, Color.white); //Useful for designers to know if their object is reachable
                 return canGrab = true;
             }
-        }
+        }//If we can't pick it up, then dump the gameobject variable and report back
         Debug.DrawRay(transform.position, transform.forward * imTouching.distance, Color.white);
         curItem = null;
         return canGrab = false;
     }
+    #endregion
 
+    #region objInteract() Method
     private void objInteract(){
-        if (Input.GetMouseButtonDown(1)){
-            if (canCarry == true)
+        if (Input.GetMouseButtonDown(1)){ //Right click
+            if (canCarry == true) //If we actually can pick something up
             {
-                grabbedItem = curItem;
+                grabbedItem = curItem; //Holds our gameobject variable for manipulation and dumps the temp variable
                 curItem = null;
                 grabbedItem.transform.SetParent(transform.GetChild(0));
-                grabbedItem.AddComponent<extGrabbedBehave>();
+                grabbedItem.AddComponent<extGrabbedBehave>(); //Inserts an object behaviour script into our grabbed object
                 canCarry = false;
-                return;
+                return; //Stops "fall through"
             }
             
-            if (canCarry == false)
+            if (canCarry == false) //If we right-click again, drop it
             {
                 extGrabbedBehave eGBScript = grabbedItem.GetComponent<extGrabbedBehave>();
-                eGBScript.dropMe = true;
+                eGBScript.dropMe = true; //The beauty of using external scripts
                 canCarry = true;
                 return;
             }
         }
-    if (Input.GetMouseButtonDown(0)){
+    if (Input.GetMouseButtonDown(0)){ //Left-click, throwing
         if (canCarry == false){
                 extGrabbedBehave eGBScript = grabbedItem.GetComponent<extGrabbedBehave>();
-                eGBScript.throwMeB = true;
+                eGBScript.throwMeB = true; //Tells the internal script to run the throw function.
                 return;
             }
         }
     }
+    #endregion
+
+    #region changeCur() Method
+    private void changeCur(){
+        if (canCarry == false) //Carrying takes importance over the report of our raycast
+        {
+            curImage.sprite = curGrabbed;
+        }
+        else if (canGrab == true) //If we can't carry, then Raycast is second most important to read
+        {
+            curImage.sprite = curGrabbable;
+        }
+        else //If all else fails, put our cursor to normal
+        {
+            curImage.sprite = curDef;
+        }
+    }
+    #endregion
 }
