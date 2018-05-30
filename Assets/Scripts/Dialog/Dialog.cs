@@ -17,7 +17,7 @@ public class Dialog : MonoBehaviour
 
     #region Disable Dialog Variables
     public Text txt; //Shares the weight text
-    private bool skipDialog = false;
+    public bool skipDialog = false;
     private float timer0 = 0; //Timers, yay!
     private bool runTimer = false;
     public GameObject path; //refers to the path you get in the play room when disabling dialog
@@ -26,6 +26,10 @@ public class Dialog : MonoBehaviour
     #region Lava Easter Egg Variables
     private bool lavaFirst = false;
     private bool pastSeqFire = false;
+    #endregion
+
+    #region White Easter Egg
+    public GameObject oldMap;
     #endregion
 
     private void Awake() //Initializing, no way around it
@@ -57,12 +61,13 @@ public class Dialog : MonoBehaviour
             if (GameObject.Find("narratorCube2") != null) { GameObject.Find("narratorCube2").GetComponent<Rigidbody>().isKinematic = false; } //Same here
             child.GetComponent<playerPickUp>().canCarry = true; //Allow us to carry shit
             path.SetActive(true); //If we're in play room, let us walk back
+            oldMap.SetActive(true);
             return;
         }
 
         if (runTimer == true) //Just controls the text that informs the user they disabled dialog
         {
-            txt.text = "DIALOG DISABLED";
+            txt.text = "EXPLORER MODE ENABLED";
             txt.color = Color.green;
             timer0 += Time.deltaTime;
 

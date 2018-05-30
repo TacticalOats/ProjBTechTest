@@ -348,6 +348,8 @@
     <Compile Include="Assets\Scripts\devCubeRed.cs" />
     <Compile Include="Assets\Scripts\Dialog\Dialog.cs" />
     <Compile Include="Assets\Scripts\EasterEggs\greenEasterEgg.cs" />
+    <Compile Include="Assets\Scripts\EasterEggs\whiteEasterEgg.cs" />
+    <Compile Include="Assets\Scripts\ExplorerMode.cs" />
     <Compile Include="Assets\Scripts\Fire\fireInsert.cs" />
     <Compile Include="Assets\Scripts\Fire\fireSource.cs" />
     <Compile Include="Assets\Scripts\itemHandle\itemAudio.cs" />
