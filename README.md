@@ -17,7 +17,7 @@ How to find all easter eggs ;)
 
 
 Inventory System:
-There was actually two contributors to this project, though I was the main one. However, my partner had been working on an inventory system that didn't make it due to time constraints. Yet, here is a picture to show what it could have looked like:
+There was actually two contributors to this project, though I was the main one. However, my partner (CamMister) had been working on an inventory system that didn't make it due to time constraints. Yet, here is a picture to show what it could have looked like:
 https://imgur.com/a/2V5Ha7L
 
 The first image shows the UI look, with the second showing a little bug that actually looked like a fun one. If this system would have made it, then it simply would have been glued in with the features you already play with, only difference being that left-clicking on an object that is not grabbed would instead throw it into your hotbar for you to carry around without dropping. Placing the object back down would work the exact same as right-clicking.
