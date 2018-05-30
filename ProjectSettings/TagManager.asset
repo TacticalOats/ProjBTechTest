@@ -7,6 +7,7 @@ TagManager:
   - Item
   - Item:Breakable
   - Fire
+  - inventoryCube
   layers:
   - Default
   - TransparentFX
